@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">S. R. Citas</string>
+    <string name="label_login">Inicio de sesión</string>
+    <string name="label_email">Correo</string>
+    <string name="label_password">Contraseña</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="label_go_register">¿Aún no te has registrado?</string>
+    <string name="label_register">Registro</string>
+    <string name="label_name">Nombre completo</string>
+    <string name="btn_register">CONFIRMAR REGISTRO</string>
+    <string name="label_go_to_login">¿Ya tienes una cuenta?</string>
+    <string name="btn_logout">Cerrar Sesión</string>
+    <string name="label_welcome">Bienvenido</string>
+    <string name="btn_create_appointments">Reservar Cita</string>
+    <string name="btn_my_appointments">Mis citas</string>
+    <string name="label_create_appointments">Reservar cita</string>
+    <string name="label_description">Descripción</string>
+    <string name="label_specialty">Especialidad</string>
+    <string name="label_type">Tipo de cita</string>
+    <string name="type1">Consulta</string>
+    <string name="type2">Examen</string>
+    <string name="type3">Operación</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="label_doctor">Médico</string>
+    <string name="label_scheduled_Date">Fecha</string>
+    label_scheduled_Date
+
+</resources>
