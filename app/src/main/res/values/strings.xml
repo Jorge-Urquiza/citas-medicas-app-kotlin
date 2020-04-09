@@ -23,6 +23,5 @@
     <string name="btn_next">Siguiente</string>
     <string name="label_doctor">Médico</string>
     <string name="label_scheduled_Date">Fecha</string>
-    label_scheduled_Date
-
+    <string name="btn_confirm">Confirmar</string>
 </resources>
