@@ -13,5 +13,8 @@ class MenuActivity : AppCompatActivity() {
         btnCreateAppointment.setOnClickListener{
             startActivity(Intent(this,CreateAppointmentActivity::class.java))
         }
+        btnMyAppointments.setOnClickListener{
+            startActivity(Intent(this,AppointmentsActivity::class.java))
+        }
     }
 }
