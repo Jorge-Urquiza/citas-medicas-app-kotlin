@@ -24,5 +24,12 @@
     <string name="label_doctor">Médico</string>
     <string name="label_scheduled_Date">Fecha</string>
     <string name="btn_confirm">Confirmar</string>
+
     <string name="date_format">%1$d-%2$s-%3$s</string>
+
+    <string name="item_appointment_id">Cita Médica %1$d</string>
+    <string name="item_appointment_date">Atencion el día %1$s</string>
+    <string name="item_appointment_time">A horas %1$s </string>
+    <string name="label_my_appointments">Mis citas médicas</string>
+
 </resources>

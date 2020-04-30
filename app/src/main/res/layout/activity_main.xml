@@ -34,6 +34,7 @@
         <EditText
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -46,6 +47,7 @@
         <EditText
             android:layout_width="match_parent"
             android:inputType="textPassword"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
         <Button

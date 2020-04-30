@@ -12,6 +12,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
         tvGoToLogin.setOnClickListener{
             Toast.makeText(this,"Toast funcionando", Toast.LENGTH_LONG).show();
             startActivity(Intent(this, MainActivity::class.java))

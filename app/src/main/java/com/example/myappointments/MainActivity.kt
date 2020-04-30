@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener({
             Toast.makeText(this,"Ingresando....", Toast.LENGTH_LONG).show();
             startActivity(Intent(this, MenuActivity::class.java))
+            finish()
         })
     }
 }

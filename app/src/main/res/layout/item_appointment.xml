@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvAppointmenId"
+            android:id="@+id/tvAppointmentId"
             tools:text="Cita #7" />
 
         <TextView
