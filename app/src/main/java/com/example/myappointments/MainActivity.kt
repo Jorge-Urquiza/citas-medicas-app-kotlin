@@ -1,8 +1,11 @@
 package com.example.myappointments
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -11,16 +14,45 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // se puede acceder directamente gracias al import activty_main.*
-        tvGoToRegister.setOnClickListener{
-            Toast.makeText(this,"Toast funcionando", Toast.LENGTH_LONG).show();
-            val intento1 = Intent(this, RegisterActivity::class.java)
-            startActivity(intento1)
+        // obtener una preferencia
+
+        if(getStateSession()){
+            goToMenuActivty()
         }
-        btnLogin.setOnClickListener({
-            Toast.makeText(this,"Ingresando....", Toast.LENGTH_LONG).show();
-            startActivity(Intent(this, MenuActivity::class.java))
-            finish()
-        })
+
+        // se puede acceder directamente gracias al import activty_main.*
+        tvGoToRegister.setOnClickListener {
+            goToFormRegister()
+        }
+        btnLogin.setOnClickListener {
+            // crear la preferencia
+            createSessionSharedPreferences()
+            goToMenuActivty()
+        }
+
+    }
+
+    private fun createSessionSharedPreferences() {
+        val preference: SharedPreferences = getSharedPreferences("general", Context.MODE_PRIVATE)
+        val editor= preference.edit()
+        editor.putBoolean("session", true)
+        editor.apply()
+    }
+
+    private fun goToFormRegister() {
+        Toast.makeText(this, "Formulario....", Toast.LENGTH_LONG).show();
+        startActivity(Intent(this, RegisterActivity::class.java))
+        finish()
+    }
+
+    private fun goToMenuActivty() {
+        Toast.makeText(this, "Ingresando....", Toast.LENGTH_LONG).show();
+        startActivity(Intent(this, MenuActivity::class.java))
+        finish()
+    }
+    private fun getStateSession() :Boolean{
+        val preference: SharedPreferences = getSharedPreferences("general", Context.MODE_PRIVATE)
+        val session = preference.getBoolean("session", false)
+        return session
     }
 }
