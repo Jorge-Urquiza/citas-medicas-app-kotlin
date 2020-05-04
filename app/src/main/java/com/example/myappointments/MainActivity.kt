@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    private val snackBar by lazy{
+        Snackbar.make(mainLayout, R.string.press_back_again, Snackbar.LENGTH_SHORT)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,5 +57,14 @@ class MainActivity : AppCompatActivity() {
         val preference: SharedPreferences = getSharedPreferences("general", Context.MODE_PRIVATE)
         val session = preference.getBoolean("session", false)
         return session
+    }
+
+    override fun onBackPressed() {
+        // vamos a definir un snackbar (muestra mensajes)
+        if(snackBar.isShown){
+            super.onBackPressed()
+        }else{
+            snackBar.show()
+        }
     }
 }

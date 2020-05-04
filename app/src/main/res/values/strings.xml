@@ -31,5 +31,6 @@
     <string name="item_appointment_date">Atencion el día %1$s</string>
     <string name="item_appointment_time">A horas %1$s </string>
     <string name="label_my_appointments">Mis citas médicas</string>
+    <string name="press_back_again">Presione una vez más para salir</string>
 
 </resources>
