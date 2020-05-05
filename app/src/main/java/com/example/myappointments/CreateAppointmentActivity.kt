@@ -1,5 +1,6 @@
 package com.example.myappointments
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,12 +14,18 @@ import java.util.*
 class CreateAppointmentActivity : AppCompatActivity() {
     private val selectedCalendar = Calendar.getInstance()
     private var selectedRadioButton: RadioButton? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_appointment)
         btnNext.setOnClickListener {
-            cvStep1.visibility = View.GONE
-            cvStep2.visibility = View.VISIBLE
+            if(edDescription.text.toString().length < 5 ) {
+                edDescription.error = "Descripcion muy corta por favor ingrese al menos 5 letras"
+            }else{
+                cvStep1.visibility = View.GONE
+                cvStep2.visibility = View.VISIBLE
+            }
+
         }
         btnConfirmAppointment.setOnClickListener {
             Toast.makeText(this, "Cita registrada correctamente", Toast.LENGTH_LONG).show()
@@ -102,10 +109,35 @@ class CreateAppointmentActivity : AppCompatActivity() {
         }
 
     }
-    private fun Int.twoDigits():String{
-        return  if (this > 9) this.toString() else "0$this"
+
+    private fun Int.twoDigits(): String {
+        return if (this > 9) this.toString() else "0$this"
     }
+
     /* Otra opcion
      fun Int.twoDigits()= if (this <= 9) this.toString() else "0$this"
      */
+    override fun onBackPressed() {
+        if(cvStep2.visibility == View.VISIBLE){
+            cvStep2.visibility=View.GONE
+            cvStep1.visibility=View.VISIBLE
+        }else{
+            showAlertDialogAppointment()
+        }
+
+    }
+    private fun showAlertDialogAppointment(){
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.dialog_exit_tittle))
+        builder.setMessage(getString(R.string.dialog_exit_message))
+        builder.setPositiveButton(getString(R.string.dialog_appointment_exit_positive)){ _, _ ->
+            finish()
+        }
+        builder.setNegativeButton(getString(R.string.dialog_appointment_exit_negative)) {
+                dialog, witch ->
+            dialog.dismiss() //ocultar el dialog
+        }
+        (builder.create()).show()
+    }
 }

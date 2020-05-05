@@ -11,6 +11,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    /*usamos el by lazy porque usamos el snackbar antes que se carge el layout,
+    una solucion es inicializar el snack despues del con oncreate o usar ly lazy kotlin
+     */
     private val snackBar by lazy{
         Snackbar.make(mainLayout, R.string.press_back_again, Snackbar.LENGTH_SHORT)
     }
