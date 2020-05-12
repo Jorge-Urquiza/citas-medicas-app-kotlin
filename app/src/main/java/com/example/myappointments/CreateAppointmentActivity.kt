@@ -8,7 +8,14 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_create_appointment.*
+import kotlinx.android.synthetic.main.card_view_step1.*
+import kotlinx.android.synthetic.main.card_view_step2.*
+import kotlinx.android.synthetic.main.card_view_step2.btnNext2
+import kotlinx.android.synthetic.main.card_view_step2.etScheduledDate
+import kotlinx.android.synthetic.main.card_view_step2.radioGroupLeft
+import kotlinx.android.synthetic.main.card_view_step2.radioGroupRight
+import kotlinx.android.synthetic.main.card_view_step2.spinnerDoctors
+import kotlinx.android.synthetic.main.card_view_step3.*
 import java.util.*
 
 class CreateAppointmentActivity : AppCompatActivity() {
@@ -19,13 +26,18 @@ class CreateAppointmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_appointment)
         btnNext.setOnClickListener {
-            if(edDescription.text.toString().length < 5 ) {
+            if (edDescription.text.toString().length < 5) {
                 edDescription.error = "Descripcion muy corta por favor ingrese al menos 5 letras"
-            }else{
+            } else {
                 cvStep1.visibility = View.GONE
                 cvStep2.visibility = View.VISIBLE
             }
 
+        }
+        btnNext2.setOnClickListener{
+            showAppointmentToConfirm()
+            cvStep2.visibility = View.GONE
+            cvStep3.visibility = View.VISIBLE
         }
         btnConfirmAppointment.setOnClickListener {
             Toast.makeText(this, "Cita registrada correctamente", Toast.LENGTH_LONG).show()
@@ -42,6 +54,17 @@ class CreateAppointmentActivity : AppCompatActivity() {
             this, android.R.layout.simple_expandable_list_item_1,
             optionDoctors
         )
+    }
+
+    private fun showAppointmentToConfirm() {
+        tvConfirmDescription.text=edDescription.text.toString()
+        tvConfirmSpecialty.text=spinnerSpecialties.selectedItem.toString()
+        tvConfirmDoctorName.text= spinnerDoctors.selectedItem.toString()
+        tvConfirmDate.text= etScheduledDate.text.toString()
+        tvConfirmTime.text=selectedRadioButton?.text.toString() // por si viene null
+        val selectedRadioId= radioGroupType.checkedRadioButtonId // retoorna un INT
+        val selectedType= radioGroupType.findViewById<RadioButton>(selectedRadioId) // busco el radio con ese valor int
+        tvConfirmType.text= selectedType.text.toString()
     }
 
     // llamamos esta funcion desde el XML
@@ -118,24 +141,28 @@ class CreateAppointmentActivity : AppCompatActivity() {
      fun Int.twoDigits()= if (this <= 9) this.toString() else "0$this"
      */
     override fun onBackPressed() {
-        if(cvStep2.visibility == View.VISIBLE){
-            cvStep2.visibility=View.GONE
-            cvStep1.visibility=View.VISIBLE
-        }else{
+        if(cvStep3.visibility==View.VISIBLE){
+            cvStep3.visibility=View.GONE
+            cvStep2.visibility=View.VISIBLE
+        }
+        if (cvStep2.visibility == View.VISIBLE) {
+            cvStep2.visibility = View.GONE
+            cvStep1.visibility = View.VISIBLE
+        } else { // paso1
             showAlertDialogAppointment()
         }
 
     }
-    private fun showAlertDialogAppointment(){
+
+    private fun showAlertDialogAppointment() {
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.dialog_exit_tittle))
         builder.setMessage(getString(R.string.dialog_exit_message))
-        builder.setPositiveButton(getString(R.string.dialog_appointment_exit_positive)){ _, _ ->
+        builder.setPositiveButton(getString(R.string.dialog_appointment_exit_positive)) { _, _ ->
             finish()
         }
-        builder.setNegativeButton(getString(R.string.dialog_appointment_exit_negative)) {
-                dialog, witch ->
+        builder.setNegativeButton(getString(R.string.dialog_appointment_exit_negative)) { dialog, witch ->
             dialog.dismiss() //ocultar el dialog
         }
         (builder.create()).show()
