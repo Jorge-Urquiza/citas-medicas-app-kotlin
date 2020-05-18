@@ -62,10 +62,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:checked="@+id/radioTypeFirst"
-            android:orientation="vertical">
+            android:orientation="vertical">   <!--android:checked="@+id/radioTypeFirst"-->
 
             <RadioButton
+                android:checked="true"
                 android:id="@+id/radioTypeFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

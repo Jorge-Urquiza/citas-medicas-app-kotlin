@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_create_appointment.*
 import kotlinx.android.synthetic.main.card_view_step1.*
 import kotlinx.android.synthetic.main.card_view_step2.*
 import kotlinx.android.synthetic.main.card_view_step2.btnNext2
@@ -20,7 +22,7 @@ import java.util.*
 
 class CreateAppointmentActivity : AppCompatActivity() {
     private val selectedCalendar = Calendar.getInstance()
-    private var selectedRadioButton: RadioButton? = null
+    private var selectedTimeRadioButton: RadioButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +37,19 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
         }
         btnNext2.setOnClickListener{
-            showAppointmentToConfirm()
-            cvStep2.visibility = View.GONE
-            cvStep3.visibility = View.VISIBLE
+            if(etScheduledDate.text.toString().isEmpty()){
+                etScheduledDate.error=getString(R.string.validate_date_appointment)
+            }else if(selectedTimeRadioButton==null){
+                Snackbar.make(createAppointmentLinearLayout
+                    ,R.string.validate_time_appointment,Snackbar.LENGTH_LONG
+                ).show()
+
+            }else{
+                showAppointmentToConfirm()
+                cvStep2.visibility = View.GONE
+                cvStep3.visibility = View.VISIBLE
+            }
+
         }
         btnConfirmAppointment.setOnClickListener {
             Toast.makeText(this, "Cita registrada correctamente", Toast.LENGTH_LONG).show()
@@ -61,7 +73,7 @@ class CreateAppointmentActivity : AppCompatActivity() {
         tvConfirmSpecialty.text=spinnerSpecialties.selectedItem.toString()
         tvConfirmDoctorName.text= spinnerDoctors.selectedItem.toString()
         tvConfirmDate.text= etScheduledDate.text.toString()
-        tvConfirmTime.text=selectedRadioButton?.text.toString() // por si viene null
+        tvConfirmTime.text=selectedTimeRadioButton?.text.toString() // por si viene null
         val selectedRadioId= radioGroupType.checkedRadioButtonId // retoorna un INT
         val selectedType= radioGroupType.findViewById<RadioButton>(selectedRadioId) // busco el radio con ese valor int
         tvConfirmType.text= selectedType.text.toString()
@@ -70,8 +82,6 @@ class CreateAppointmentActivity : AppCompatActivity() {
     // llamamos esta funcion desde el XML
     fun onClickScheduledDate(v: View) {
         //cuando se haga click sobre el input de fecha nosotros vamos a crear un objeto DatePicker
-
-        selectedRadioButton = null
         val year = selectedCalendar.get(Calendar.YEAR)
         val month = selectedCalendar.get(Calendar.MONTH)
         val dayOfMonth = selectedCalendar.get(Calendar.DAY_OF_MONTH) // dia del mes
@@ -90,6 +100,7 @@ class CreateAppointmentActivity : AppCompatActivity() {
                     d.twoDigits()
                 ) // if como expresion
             )
+            etScheduledDate.error=null
             // para añadir radio dinamicamentes
             displayRadioButtom()
 
@@ -109,9 +120,9 @@ class CreateAppointmentActivity : AppCompatActivity() {
     }
 
     private fun displayRadioButtom() {
+        selectedTimeRadioButton=null
         radioGroupLeft.removeAllViews()
         radioGroupRight.removeAllViews()
-
 
         val hours = arrayOf("3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM")
         var goToLeft = true
@@ -120,9 +131,9 @@ class CreateAppointmentActivity : AppCompatActivity() {
             radioButtom.id = View.generateViewId() // no es un entero normal
             radioButtom.text = it
             radioButtom.setOnClickListener { view ->
-                selectedRadioButton?.isChecked = false
-                selectedRadioButton = view as RadioButton?
-                selectedRadioButton?.isChecked = true
+                selectedTimeRadioButton?.isChecked = false
+                selectedTimeRadioButton = view as RadioButton?
+                selectedTimeRadioButton?.isChecked = true
             }
             if (goToLeft)
                 radioGroupLeft.addView(radioButtom)

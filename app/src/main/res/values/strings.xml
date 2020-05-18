@@ -38,5 +38,7 @@
     <string name="dialog_appointment_exit_negative">Continuar registro</string>
     <string name="label_scheduled_time">Hora de la cita</string>
     <string name="label_confirm_appointment_data">Datos de la cita</string>
+    <string name="validate_date_appointment">Es necesario selecionar una fecha</string>
+    <string name="validate_time_appointment">Es necesario seleccionar una hora para la cita</string>
 
 </resources>
